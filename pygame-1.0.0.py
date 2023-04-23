@@ -16,6 +16,7 @@ snail = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
 snail_rect = snail.get_rect(midbottom = (600,300))
 player = pygame.image.load('graphics/player/player_stand.png').convert_alpha()
 player_rect = player.get_rect(midbottom = (200,300))
+player_grav = 0
 score = font.render('Score:', False, (64,64,64))
 score_rect = score.get_rect(center = (w/2,50))
 
@@ -25,6 +26,10 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+    
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_SPACE:
+            player_grav -=2
     
     fps = str(int(clock.get_fps()))
     fps_counter = font.render(fps, False, 'Black')
@@ -43,11 +48,15 @@ while True:
     # fps counter
     screen.blit(fps_counter, (10, 10))
     # player
+    player_grav += 1
     screen.blit(player, (player_rect))
+    player_rect.y += player_grav
     
-    
-    
-    
+    # making an animation of the snail crossing the screen on loop
+    snail_rect.left -= 4
+    if snail_rect.left == -100:
+        snail_rect.left = 800
+    screen.blit(snail,(snail_rect))
     
     
     
