@@ -20,7 +20,8 @@ ground = pygame.image.load('graphics/ground.png').convert()
 text = font.render('This Is My Game!', False, 'Black')
 snail = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
 snail_rect = snail.get_rect(midbottom = (600,300))
-
+player = pygame.image.load('graphics/player/player_stand.png').convert_alpha()
+player_rect = player.get_rect(midbottom = (200,300))
 
 # making a pos for snail_x
 snail_x = 600
@@ -46,7 +47,11 @@ while True:
     screen.blit(ground, (0, 300))
     screen.blit(text, (w/3, 50))
     screen.blit(fps_counter, (10, 10))
+    screen.blit(player, (player_rect))
     
+    collide = snail_rect.colliderect(snail_rect)
+    if collide == 0:
+        print('Collision Detected!')
     
     # making an animation of the snail crossing the screen on loop
     snail_rect.left -= 4
